@@ -33,7 +33,7 @@ public abstract class KafkaMessagesHandler<T> {
         T after = null;
 
         if (Objects.isNull(entityClass)) {
-            throw new IllegalArgumentException("AbstractSimpleEventHandler should have a type a argument");
+            throw new IllegalArgumentException("Entity class cannot be resolved");
         }
         if (!payloadBefore.equals("null")) {
             before = mapper.readValue(payloadBefore, entityClass);
