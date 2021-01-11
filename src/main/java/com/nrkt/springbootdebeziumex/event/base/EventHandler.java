@@ -1,7 +1,7 @@
 package com.nrkt.springbootdebeziumex.event.base;
 
-import com.nrkt.springbootdebeziumex.dto.DebeziumEvent;
+import com.nrkt.springbootdebeziumex.dto.DebeziumPayload;
 
 public interface EventHandler {
-  void process(DebeziumEvent event);
+  void process(DebeziumPayload event);
 }

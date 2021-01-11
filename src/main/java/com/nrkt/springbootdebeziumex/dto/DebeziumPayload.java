@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DebeziumEvent {
+public class DebeziumPayload {
     String before;
     String after;
     PayloadType operation;

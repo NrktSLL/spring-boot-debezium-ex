@@ -1,7 +1,7 @@
 package com.nrkt.springbootdebeziumex.listener;
 
-import com.nrkt.springbootdebeziumex.event.EventHandlerFactory;
-import com.nrkt.springbootdebeziumex.utils.KafkaMessageModelConvert;
+import com.nrkt.springbootdebeziumex.event.factory.EventHandlerFactory;
+import com.nrkt.springbootdebeziumex.utils.DebeziumMessageConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -20,7 +20,7 @@ public class Receiver {
     public void consumeDebezuim(ConsumerRecord<String, String> record) {
 
         try {
-            var debeziumEvent = KafkaMessageModelConvert.convertModel(record.value());
+            var debeziumEvent = DebeziumMessageConverter.convertToPayload(record.value());
             if (debeziumEvent.getOperation() != null) {
                 handlerFactory.getHandler(record.topic()).process(debeziumEvent);
             } else throw new KafkaException(record.key() + "contains key corresponding message is null");

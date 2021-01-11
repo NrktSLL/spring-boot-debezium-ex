@@ -2,7 +2,7 @@ package com.nrkt.springbootdebeziumex.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nrkt.springbootdebeziumex.dto.DebeziumEvent;
+import com.nrkt.springbootdebeziumex.dto.DebeziumPayload;
 import com.nrkt.springbootdebeziumex.dto.PayloadType;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -10,10 +10,10 @@ import lombok.experimental.UtilityClass;
 import java.util.Date;
 
 @UtilityClass
-public class KafkaMessageModelConvert {
+public class DebeziumMessageConverter {
 
     @SneakyThrows
-    public DebeziumEvent convertModel(String jsonData) {
+    public DebeziumPayload convertToPayload(String jsonData) {
         if (jsonData != null) {
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -26,15 +26,15 @@ public class KafkaMessageModelConvert {
             JsonNode operation = root.path("op");
 
             long epoch = Long.parseLong(epochTime.asText()) * 1000;
-            var date = new Date(epoch);
+            Date date = new Date(epoch);
 
-            return DebeziumEvent.builder()
+            return DebeziumPayload.builder()
                     .after(after.toString())
                     .before(before.toString())
                     .date(date)
                     .operation(PayloadType.value(operation.asText()))
                     .build();
         }
-        return DebeziumEvent.builder().build();
+        return DebeziumPayload.builder().build();
     }
 }

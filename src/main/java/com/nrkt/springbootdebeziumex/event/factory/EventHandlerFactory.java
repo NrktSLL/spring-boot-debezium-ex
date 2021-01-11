@@ -1,4 +1,4 @@
-package com.nrkt.springbootdebeziumex.event;
+package com.nrkt.springbootdebeziumex.event.factory;
 
 import com.google.common.collect.Maps;
 import com.nrkt.springbootdebeziumex.event.base.EventHandler;

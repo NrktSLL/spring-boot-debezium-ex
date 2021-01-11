@@ -9,11 +9,11 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 @Component
-public class DebeziumConnection implements CommandLineRunner {
+public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
-    public DebeziumConnection(UserRepository userRepository) {
+    public DataLoader(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

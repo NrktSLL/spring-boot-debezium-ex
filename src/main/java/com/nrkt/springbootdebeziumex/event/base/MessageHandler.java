@@ -2,7 +2,7 @@ package com.nrkt.springbootdebeziumex.event.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
-import com.nrkt.springbootdebeziumex.dto.DebeziumEvent;
+import com.nrkt.springbootdebeziumex.dto.DebeziumPayload;
 import com.nrkt.springbootdebeziumex.dto.PayloadType;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 @RequiredArgsConstructor
-public abstract class KafkaMessagesHandler<T> {
+public abstract class MessageHandler<T> {
     protected final Map<PayloadType, BiConsumer<T, T>> actions = Maps.newConcurrentMap();
 
     public abstract void initActions();
@@ -22,12 +22,12 @@ public abstract class KafkaMessagesHandler<T> {
 
     @SneakyThrows
     @SuppressWarnings(value = "unchecked")
-    public void process(DebeziumEvent event) {
+    public void process(DebeziumPayload event) {
         var payloadType = event.getOperation();
         String payloadBefore = event.getBefore();
         String payloadAfter = event.getAfter();
 
-        Class<T> entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), KafkaMessagesHandler.class);
+        Class<T> entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), MessageHandler.class);
 
         T before = null;
         T after = null;
