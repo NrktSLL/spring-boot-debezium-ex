@@ -45,3 +45,4 @@ sh connector.sh
 
 * https://github.com/joumenharzli/spring-rdbms-cdc-kafka-elasticsearch
 * https://github.com/debezium/debezium-examples
+* https://github.com/debezium/docker-images
